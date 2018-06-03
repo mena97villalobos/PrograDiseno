@@ -72,6 +72,7 @@
       <TextField fx:id="savePath" layoutX="246.0" layoutY="432.0" prefHeight="31.0" prefWidth="209.0" promptText="Path de Salida" />
       <Button fx:id="saveAll" layoutX="246.0" layoutY="474.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="94.0" text="Guardar" />
       <Button fx:id="cargar" layoutX="356.0" layoutY="474.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="94.0" text="Cargar" />
-      <Button fx:id="cDefault" layoutX="265.0" layoutY="526.0" mnemonicParsing="false" text="Configuración Default" />
+      <Button fx:id="cDefault" layoutX="246.0" layoutY="526.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="94.0" text="Defaults" />
+      <Button fx:id="simular" layoutX="356.0" layoutY="526.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="94.0" text="Simular" />
    </children>
 </Pane>

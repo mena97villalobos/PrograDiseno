@@ -1,8 +1,6 @@
 package Model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ConfiguracionDTO {
     private ArrayList<Float> p1S;
@@ -29,27 +27,11 @@ public class ConfiguracionDTO {
         tipoSalida = TiposArchivo.JSON;
     }
 
-    public ConfiguracionDTO(ArrayList<Float> p1S, ArrayList<Float> p2S, ArrayList<Float> p3S, ArrayList<Float> p4S,
-                            int numeroPisos, int numeroElevadores, int numeroPasajeros, int utEntrePisos,
-                            int utPuertasAbiertas, String pathSalida, TiposArchivo tipoSalida) {
-        this.p1S = p1S;
-        this.p2S = p2S;
-        this.p3S = p3S;
-        this.p4S = p4S;
-        this.numeroPisos = numeroPisos;
-        this.numeroElevadores = numeroElevadores;
-        this.numeroPasajeros = numeroPasajeros;
-        this.utEntrePisos = utEntrePisos;
-        this.utPuertasAbiertas = utPuertasAbiertas;
-        this.pathSalida = pathSalida;
-        this.tipoSalida = tipoSalida;
-    }
-
     public ArrayList<Float> getP1S() {
         return p1S;
     }
 
-    public void setP1S(ArrayList<Float> p1S) {
+    void setP1S(ArrayList<Float> p1S) {
         this.p1S = p1S;
     }
 
@@ -57,7 +39,7 @@ public class ConfiguracionDTO {
         return p2S;
     }
 
-    public void setP2S(ArrayList<Float> p2S) {
+    void setP2S(ArrayList<Float> p2S) {
         this.p2S = p2S;
     }
 
@@ -65,7 +47,7 @@ public class ConfiguracionDTO {
         return p3S;
     }
 
-    public void setP3S(ArrayList<Float> p3S) {
+    void setP3S(ArrayList<Float> p3S) {
         this.p3S = p3S;
     }
 
@@ -73,7 +55,7 @@ public class ConfiguracionDTO {
         return p4S;
     }
 
-    public void setP4S(ArrayList<Float> p4S) {
+    void setP4S(ArrayList<Float> p4S) {
         this.p4S = p4S;
     }
 
@@ -117,7 +99,7 @@ public class ConfiguracionDTO {
         this.utPuertasAbiertas = utPuertasAbiertas;
     }
 
-    public String getPathSalida() {
+    String getPathSalida() {
         return pathSalida;
     }
 

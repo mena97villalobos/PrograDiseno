@@ -78,6 +78,8 @@ public class ControllerConfiguracion implements Initializable {
     private Button cargar;
     @FXML
     private Button cDefault;
+    @FXML
+    private Button simular;
 
     private ConfiguracionDTO configuracion = new ConfiguracionDTO();
     private final FileChooser fileChooser = new FileChooser();
@@ -154,14 +156,17 @@ public class ControllerConfiguracion implements Initializable {
         cargar.setOnAction(event -> {
             File file = fileChooser.showOpenDialog(cargar.getScene().getWindow());
             if (file != null) {
-                ConfiguracionDTO c = FileHandle.cargarArchivo(file);
-                cargarConfiguraciones(c);
+                configuracion = FileHandle.cargarArchivo(file);
+                cargarConfiguraciones(configuracion);
             }
             else
                 Alertas.invocarAlerta("Seleccione algún archivo", Alert.AlertType.ERROR);
         });
         cDefault.setOnAction(event -> cargarConfiguraciones(new ConfiguracionDTO()));
 
+        simular.setOnAction(event -> {
+
+        });
     }
 
     private void hiloAtributos(int cantidadDeseada, ComboBox<String> revisar, ArrayList<Float> guardar, Button agregar){
