@@ -1,6 +1,9 @@
 package Model;
 
 public class BotonBajar implements BotonInterfaz, Interrupcion{
+    boolean luz = false;
+    String label = "BAJAR";
+
     @Override
     public void prenderLuz() {
 

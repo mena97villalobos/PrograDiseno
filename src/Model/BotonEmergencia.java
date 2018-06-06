@@ -1,6 +1,9 @@
 package Model;
 
 public class BotonEmergencia implements BotonInterfaz, Interrupcion {
+    boolean luz = false;
+    String label = "";
+
     @Override
     public void prenderLuz() {
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="728.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerElevador">
+   <children>
+      <Rectangle fx:id="lucesLlegada" arcHeight="5.0" arcWidth="5.0" fill="#f8f8f8" height="63.0" layoutX="11.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="898.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8f8f8" height="407.0" layoutX="48.0" layoutY="143.0" stroke="BLACK" strokeType="INSIDE" width="290.0" />
+      <ImageView fx:id="puerta" fitHeight="628.0" fitWidth="517.0" layoutX="389.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" />
+      <Pane fx:id="lucesLlegadaPane" layoutX="11.0" layoutY="14.0" prefHeight="63.0" prefWidth="898.0" />
+      <Pane fx:id="panel" layoutX="48.0" layoutY="143.0" prefHeight="407.0" prefWidth="290.0" />
+   </children>
+</AnchorPane>

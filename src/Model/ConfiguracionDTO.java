@@ -3,10 +3,10 @@ package Model;
 import java.util.ArrayList;
 
 public class ConfiguracionDTO {
-    private ArrayList<Float> p1S;
-    private ArrayList<Float> p2S;
-    private ArrayList<Float> p3S;
-    private ArrayList<Float> p4S;
+    private ArrayList<Float> p1S = new ArrayList<>();
+    private ArrayList<Float> p2S = new ArrayList<>();
+    private ArrayList<Float> p3S = new ArrayList<>();
+    private ArrayList<Float> p4S = new ArrayList<>();
     private int numeroPisos;
     private int numeroElevadores;
     private int numeroPasajeros;
@@ -16,10 +16,15 @@ public class ConfiguracionDTO {
     private TiposArchivo tipoSalida;
 
     public ConfiguracionDTO() {
-        ArrayList<Float> probabilidades = new ArrayList<>();
-        probabilidades.add(0.5f);
-        probabilidades.add(0.5f);
-        p1S = p2S = p3S = p4S = probabilidades;
+        ArrayList<ArrayList<Float>> aux = new ArrayList<>();
+        aux.add(p1S);
+        aux.add(p2S);
+        aux.add(p3S);
+        aux.add(p4S);
+        for (ArrayList<Float> floats : aux) {
+            floats.add(0.05f);
+            floats.add(0.05f);
+        }
         numeroPisos = numeroElevadores = 2;
         numeroPasajeros = utPuertasAbiertas = 15;
         utEntrePisos = 35;

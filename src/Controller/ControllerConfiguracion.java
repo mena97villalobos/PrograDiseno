@@ -1,16 +1,17 @@
 package Controller;
 
-import Model.Alertas;
-import Model.ConfiguracionDTO;
-import Model.FileHandle;
-import Model.TiposArchivo;
+import Model.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
@@ -165,7 +166,9 @@ public class ControllerConfiguracion implements Initializable {
         cDefault.setOnAction(event -> cargarConfiguraciones(new ConfiguracionDTO()));
 
         simular.setOnAction(event -> {
-
+            Simulacion s = new Simulacion(configuracion);
+            s.iniciar();
+            abrir_pantallas(s.elevadores, s.pisos);
         });
     }
 
@@ -177,7 +180,7 @@ public class ControllerConfiguracion implements Initializable {
                 revisar.setItems(FXCollections.observableArrayList(new ArrayList<>()));
                 while(count != cantidadDeseada)
                     count = new ArrayList<>(revisar.getItems()).size();
-                float probabilidad = 0;
+
                 String floatPattern = "^(0\\.\\d+).*";
                 Pattern p = Pattern.compile(floatPattern);
                 ArrayList<Float> aux = new ArrayList<>();
@@ -187,14 +190,13 @@ public class ControllerConfiguracion implements Initializable {
                         String numero = m.group(1);
                         float current = Float.parseFloat(numero);
                         aux.add(current);
-                        probabilidad += current;
-                    }
-                    else{
-                        probabilidad = 0;
-                        break;
                     }
                 }
-                if(probabilidad != 1.0) {
+                float probabilidad = 0;
+                for (Float aFloat : aux) {
+                    probabilidad += aFloat;
+                }
+                if(Math.abs(probabilidad - 1.0) > 0.005) {
                     Platform.runLater(() -> {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setContentText("La probabilidad debe ser 1.0");
@@ -261,6 +263,28 @@ public class ControllerConfiguracion implements Initializable {
             aux.add(Float.toString(aFloat) + ": Para piso/elevador #" + Integer.toString(aux.size()+1));
         }
         return aux;
+    }
+
+    public void abrir_pantallas(ArrayList<Elevador> e, ArrayList<Piso> p){
+        int i = 1;
+        for (Elevador elevador : e) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = loader.load(getClass().getResource("../View/Elevador.fxml").openStream());
+                ControllerElevador c = loader.getController();
+                c.elevador = elevador;
+                c.iniciar();
+                Stage escenario = new Stage();
+                escenario.setTitle("Elevador " + Integer.toString(i));
+                escenario.setScene(new Scene(root, 920, 728));
+                escenario.show();
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+            i++;
+        }
+        Stage actual = (Stage) simular.getScene().getWindow();
+        actual.close();
     }
 
 }
