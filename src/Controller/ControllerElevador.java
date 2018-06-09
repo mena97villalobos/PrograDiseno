@@ -1,13 +1,11 @@
 package Controller;
 
-import Model.BotonDestino;
-import Model.BotonInterfaz;
-import Model.Elevador;
+import Model.*;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -19,6 +17,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControllerElevador implements Initializable {
@@ -30,12 +29,18 @@ public class ControllerElevador implements Initializable {
     public Pane lucesLlegadaPane;
 
     public Elevador elevador;
+    private boolean stop = false;
+    private ArrayList<Rectangle> lucesLlegada = new ArrayList<>();
+    private Image puertaCerrada;
+    private Image puertaAbierta;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File file = new File("src/Resources/puertaCerrada.png");
-        Image image = new Image(file.toURI().toString());
-        puerta.setImage(image);
+        File file = new File("src/Resources/puertaAbierta.png");
+        puertaAbierta = new Image(file.toURI().toString());
+        file = new File("src/Resources/puertaCerrada.png");
+        puertaCerrada = new Image(file.toURI().toString());
+        puerta.setImage(puertaAbierta);
     }
 
     public void iniciar(){
@@ -48,6 +53,7 @@ public class ControllerElevador implements Initializable {
             r.setY(17);
             r.setFill(aBoolean ? Color.LIME : Color.YELLOW);
             lucesLlegadaPane.getChildren().add(r);
+            lucesLlegada.add(r);
             x += 44;
         }
         x = 14;
@@ -77,5 +83,32 @@ public class ControllerElevador implements Initializable {
                 iteracion++;
             }
         }
+        actualizarInfo();
+    }
+
+    private void actualizarInfo(){
+        Task task = new Task() {
+            @Override
+            protected Void call(){
+            while (!stop) {
+                if (elevador.estado.equals(Estados.DETENIDO))
+                    puerta.setImage(puertaAbierta);
+                else
+                    puerta.setImage(puertaCerrada);
+                for (int i = 0; i < elevador.lucesLlegada.size(); i++) {
+                    if (elevador.lucesLlegada.get(i)) {
+                        Rectangle r = lucesLlegada.get(i);
+                        r.setFill(Color.LIME);
+                    } else {
+                        Rectangle r = lucesLlegada.get(i);
+                        r.setFill(Color.YELLOW);
+                    }
+                }
+            }
+            return null;
+            }
+        };
+        Thread t = new Thread(task);
+        t.start();
     }
 }

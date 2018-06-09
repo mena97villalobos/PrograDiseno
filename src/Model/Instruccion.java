@@ -1,7 +1,5 @@
 package Model;
 
-public class Instruccion {
-    public Piso piso;
+public abstract class Instruccion {
     public Acciones accion;
-    public Elevador elevador;
 }

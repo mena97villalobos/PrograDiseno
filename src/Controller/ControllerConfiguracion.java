@@ -265,7 +265,7 @@ public class ControllerConfiguracion implements Initializable {
         return aux;
     }
 
-    public void abrir_pantallas(ArrayList<Elevador> e, ArrayList<Piso> p){
+    private void abrir_pantallas(ArrayList<Elevador> e, ArrayList<Piso> p){
         int i = 1;
         for (Elevador elevador : e) {
             try {
@@ -277,6 +277,23 @@ public class ControllerConfiguracion implements Initializable {
                 Stage escenario = new Stage();
                 escenario.setTitle("Elevador " + Integer.toString(i));
                 escenario.setScene(new Scene(root, 920, 728));
+                escenario.show();
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+            i++;
+        }
+        i = 1;
+        for (Piso piso : p) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                Parent root = loader.load(getClass().getResource("../View/Piso.fxml").openStream());
+                ControllerPiso c = loader.getController();
+                c.piso = piso;
+                c.iniciar();
+                Stage escenario = new Stage();
+                escenario.setTitle("Piso " + Integer.toString(i));
+                escenario.setScene(new Scene(root, 600, 400));
                 escenario.show();
             } catch (IOException exception) {
                 exception.printStackTrace();

@@ -22,8 +22,8 @@ public class ConfiguracionDTO {
         aux.add(p3S);
         aux.add(p4S);
         for (ArrayList<Float> floats : aux) {
-            floats.add(0.05f);
-            floats.add(0.05f);
+            floats.add(0.5f);
+            floats.add(0.5f);
         }
         numeroPisos = numeroElevadores = 2;
         numeroPasajeros = utPuertasAbiertas = 15;

@@ -13,36 +13,51 @@ public class BotonDestino implements BotonInterfaz, Interrupcion {
     int numeroElevador;
     int destino;
     public Button botonInterfaz;
+    private Instruccion instruccion;
+    public Elevador elevador;
 
-    public BotonDestino(int numeroElevador, int destino){
-        this.label = "Piso: " + Integer.toString(destino);
+    public BotonDestino(int numeroElevador, int destino, Elevador e){
+        this.label = Integer.toString(destino);
         this.numeroElevador = numeroElevador;
         this.destino = destino;
+        this.elevador = e;
     }
 
     @Override
     public void prenderLuz() {
-
+        botonInterfaz.setBackground(new Background(new BackgroundFill(
+                Color.LIME, CornerRadii.EMPTY, Insets.EMPTY)));
+        luz = true;
     }
 
     @Override
     public void apagarLuz() {
-
+        botonInterfaz.setBackground(new Background(new BackgroundFill(
+                Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        luz = false;
     }
 
     @Override
     public void presionar() {
-        botonInterfaz.setBackground(new Background(new BackgroundFill(
-                Color.LIME, CornerRadii.EMPTY, Insets.EMPTY)));
+        if(luz)
+            apagarLuz();
+        else{
+            prenderLuz();
+            crearInstruccion();
+            lanzarInterrupcion();
+        }
     }
 
     @Override
     public void lanzarInterrupcion() {
-
+        elevador.calendarizador.annadirInstruccion(instruccion);
     }
 
     @Override
     public void crearInstruccion() {
-
+        int pisoOrigen = elevador.pisoActual;
+        int pisoDestino = Integer.parseInt(label);
+        instruccion = new InstruccionSubirBajar(pisoOrigen, pisoDestino,
+                pisoDestino > pisoOrigen ? Acciones.BAJAR : Acciones.SUBIR);
     }
 }
