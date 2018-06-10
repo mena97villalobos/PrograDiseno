@@ -50,6 +50,6 @@ public class BotonSubir implements BotonInterfaz, Interrupcion {
 
     @Override
     public void crearInstruccion() {
-        instruccion = new InstruccionSubirBajar(piso.numeroPiso, piso.numeroPiso, Acciones.SUBIR);
+        instruccion = new InstruccionSubirBajar(piso.numeroPiso, piso.numeroPiso, Acciones.SUBIR, -1);
     }
 }

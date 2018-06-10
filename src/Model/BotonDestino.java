@@ -58,6 +58,6 @@ public class BotonDestino implements BotonInterfaz, Interrupcion {
         int pisoOrigen = elevador.pisoActual;
         int pisoDestino = Integer.parseInt(label);
         instruccion = new InstruccionSubirBajar(pisoOrigen, pisoDestino,
-                pisoDestino > pisoOrigen ? Acciones.BAJAR : Acciones.SUBIR);
+                pisoDestino > pisoOrigen ? Acciones.BAJAR : Acciones.SUBIR, elevador.numeroElevador);
     }
 }

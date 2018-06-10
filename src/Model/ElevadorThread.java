@@ -28,6 +28,7 @@ public class ElevadorThread implements Runnable {
                 visitando = elevador.proximosDestinos.get(0);
                 System.out.println("Elevador " + Integer.toString(elevador.numeroElevador) + " visitando Piso " + Integer.toString(visitando));
                 elevador.proximosDestinos.remove(0);
+                elevador.observador.notificarSalida(elevador.pisoActual - 1, elevador.numeroElevador);
                 if (elevador.estado.equals(Estados.DETENIDO)) {
                     elevador.estado = visitando < elevador.pisoActual ? Estados.BAJANDO : Estados.SUBIENDO;
                 } else
@@ -36,10 +37,12 @@ public class ElevadorThread implements Runnable {
                     try {
                         Thread.sleep(elevador.utEntrePisos*1000);
                         System.out.println("Elevador " + Integer.toString(elevador.numeroElevador) + " llegando al Piso " + Integer.toString(visitando));
+                        elevador.observador.notificarLlegada(visitando-1, elevador.numeroElevador);
                         elevador.lucesLlegada.set(ultimaVisita - 1, false);
                         elevador.lucesLlegada.set(visitando - 1, true);
                         elevador.pisoActual = visitando;
                         Thread.sleep(elevador.utPuertasAbiertas*1000);
+                        elevador.estado = Estados.DETENIDO;
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

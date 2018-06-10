@@ -21,7 +21,7 @@ public class Simulacion {
         int numeroPisos = c.getNumeroPisos();
         for(int i = 0; i < c.getNumeroElevadores(); i++)
             elevadores.add(new Elevador(i+1, numeroPisos, c.getP3S().get(i), c.getP4S().get(i),
-                    c.getUtEntrePisos(), c.getUtPuertasAbiertas(), calendarizador));
+                    c.getUtEntrePisos(), c.getUtPuertasAbiertas(), calendarizador, new ObservadorElevador(pisos)));
 
 
     }

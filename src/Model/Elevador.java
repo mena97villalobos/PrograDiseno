@@ -6,7 +6,7 @@ public class Elevador {
     public ArrayList<Boolean> lucesLlegada = new ArrayList<>();
     public ArrayList<BotonInterfaz> panel = new ArrayList<>();
     int numeroElevador;
-    int pisoActual = 1;
+    public int pisoActual = 1;
     private float probabilidadEmergencia;
     private float probabilidadDetenerse;
     public Estados estado = Estados.DETENIDO;
@@ -16,9 +16,10 @@ public class Elevador {
     boolean detener = false;
     private Thread thread;
     Calendarizador calendarizador;
+    ObservadorElevador observador;
 
     public Elevador(int numeroElevador, int numeroPisos, float emergencia, float detenerse,
-                    int utEP, int utPA, Calendarizador c) {
+                    int utEP, int utPA, Calendarizador c, ObservadorElevador observador) {
         BotonEmergencia botonEmergencia = new BotonEmergencia();
         botonEmergencia.elevador = this;
         BotonDetenerse botonDetenerse = new BotonDetenerse();
@@ -37,6 +38,7 @@ public class Elevador {
         this.thread = new Thread(new ElevadorThread(this));
         this.thread.start();
         this.calendarizador = c;
+        this.observador = observador;
     }
 
     void annadirDestino(int destino){

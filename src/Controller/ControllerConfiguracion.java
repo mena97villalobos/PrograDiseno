@@ -14,6 +14,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -290,10 +291,10 @@ public class ControllerConfiguracion implements Initializable {
                 Parent root = loader.load(getClass().getResource("../View/Piso.fxml").openStream());
                 ControllerPiso c = loader.getController();
                 c.piso = piso;
-                c.iniciar();
+                c.iniciar(e);
                 Stage escenario = new Stage();
                 escenario.setTitle("Piso " + Integer.toString(i));
-                escenario.setScene(new Scene(root, 600, 400));
+                escenario.setScene(new Scene(root, 1056, 350));
                 escenario.show();
             } catch (IOException exception) {
                 exception.printStackTrace();

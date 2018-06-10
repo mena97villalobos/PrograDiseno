@@ -33,51 +33,60 @@ public class Calendarizador implements Runnable{
         switch (i.accion){
             case BAJAR:
                 InstruccionSubirBajar iBajar = (InstruccionSubirBajar) i;
-
-                for (Elevador elevador : elevadores) {
-                    if(elevador.estado == Estados.BAJANDO){
-                        if(elevador.pisoActual >= iBajar.pisoOrigen){
-                            annadirDestinos(iBajar.pisoOrigen, iBajar.pisoDestino, elevador);
-                            realizada = true;
-                            break;
-                        }
-                    }
-                }
-                if(!realizada){
+                if(iBajar.elevador == -1) {
                     for (Elevador elevador : elevadores) {
-                        if(elevador.estado == Estados.DETENIDO){
-                            annadirDestinos(iBajar.pisoOrigen, iBajar.pisoDestino, elevador);
-                            realizada = true;
-                            break;
+                        if (elevador.estado == Estados.BAJANDO) {
+                            if (elevador.pisoActual >= iBajar.pisoOrigen) {
+                                annadirDestinos(iBajar.pisoOrigen, iBajar.pisoDestino, elevador);
+                                realizada = true;
+                                break;
+                            }
                         }
                     }
+                    if (!realizada) {
+                        for (Elevador elevador : elevadores) {
+                            if (elevador.estado == Estados.DETENIDO) {
+                                annadirDestinos(iBajar.pisoOrigen, iBajar.pisoDestino, elevador);
+                                realizada = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!realizada) {
+                        annadirDestinos(iBajar.pisoOrigen, iBajar.pisoDestino, elevadores.get(0));
+                    }
                 }
-                if(!realizada){
-                    annadirDestinos(iBajar.pisoOrigen, iBajar.pisoDestino, elevadores.get(0));
+                else{
+                    annadirDestinos(iBajar.pisoOrigen, iBajar.pisoDestino, elevadores.get(iBajar.elevador-1));
                 }
                 break;
             case SUBIR:
                 InstruccionSubirBajar iSubir = (InstruccionSubirBajar) i;
-                realizada = false;
-                for (Elevador elevador : elevadores) {
-                    if(elevador.estado == Estados.SUBIENDO){
-                        if(elevador.pisoActual >= iSubir.pisoOrigen){
-                            annadirDestinos(iSubir.pisoOrigen, iSubir.pisoDestino, elevador);
-                            realizada = true;
-                            break;
+                if(iSubir.elevador == -1) {
+                    realizada = false;
+                    for (Elevador elevador : elevadores) {
+                        if (elevador.estado == Estados.SUBIENDO) {
+                            if (elevador.pisoActual >= iSubir.pisoOrigen) {
+                                annadirDestinos(iSubir.pisoOrigen, iSubir.pisoDestino, elevador);
+                                realizada = true;
+                                break;
+                            }
                         }
                     }
+                    if (!realizada) {
+                        for (Elevador elevador : elevadores)
+                            if (elevador.estado == Estados.DETENIDO) {
+                                annadirDestinos(iSubir.pisoOrigen, iSubir.pisoDestino, elevador);
+                                realizada = true;
+                                break;
+                            }
+                    }
+                    if (!realizada) {
+                        annadirDestinos(iSubir.pisoOrigen, iSubir.pisoDestino, elevadores.get(0));
+                    }
                 }
-                if(!realizada){
-                    for (Elevador elevador : elevadores)
-                        if (elevador.estado == Estados.DETENIDO) {
-                            annadirDestinos(iSubir.pisoOrigen, iSubir.pisoDestino, elevador);
-                            realizada = true;
-                            break;
-                        }
-                }
-                if(!realizada){
-                    annadirDestinos(iSubir.pisoOrigen, iSubir.pisoDestino, elevadores.get(0));
+                else{
+                    annadirDestinos(iSubir.pisoOrigen, iSubir.pisoDestino, elevadores.get(iSubir.elevador-1));
                 }
                 break;
             case DETENERSE:
@@ -95,8 +104,8 @@ public class Calendarizador implements Runnable{
         if(origen == destino)
             elevador.annadirDestino(destino);
         else{
-            elevador.annadirDestino(origen);
             elevador.annadirDestino(destino);
+            elevador.annadirDestino(origen);
         }
     }
 
