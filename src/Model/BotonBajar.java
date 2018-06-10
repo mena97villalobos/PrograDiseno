@@ -8,13 +8,13 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 public class BotonBajar implements BotonInterfaz, Interrupcion{
-    boolean luz = false;
+    private boolean luz = false;
     public String label = "BAJAR";
     public Button botonInterfaz;
-    public Instruccion instruccion;
+    private Instruccion instruccion;
     public Piso piso;
 
-    public BotonBajar(Piso piso) {
+    BotonBajar(Piso piso) {
         this.piso = piso;
     }
 

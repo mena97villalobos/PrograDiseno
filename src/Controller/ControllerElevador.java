@@ -43,7 +43,7 @@ public class ControllerElevador implements Initializable {
         puerta.setImage(puertaAbierta);
     }
 
-    public void iniciar(){
+    void iniciar(){
         int x = 14;
         for (Boolean aBoolean : elevador.lucesLlegada) {
             Rectangle r = new Rectangle();

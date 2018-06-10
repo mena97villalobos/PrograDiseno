@@ -1,5 +1,5 @@
 package Model;
 
-public abstract class Instruccion {
-    public Acciones accion;
+abstract class Instruccion {
+    Acciones accion;
 }

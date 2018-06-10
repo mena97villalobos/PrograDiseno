@@ -8,17 +8,13 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 public class BotonDestino implements BotonInterfaz, Interrupcion {
-    boolean luz = false;
-    String label;
-    int numeroElevador;
-    int destino;
+    private boolean luz = false;
+    private int destino;
     public Button botonInterfaz;
     private Instruccion instruccion;
     public Elevador elevador;
 
-    public BotonDestino(int numeroElevador, int destino, Elevador e){
-        this.label = Integer.toString(destino);
-        this.numeroElevador = numeroElevador;
+    BotonDestino(int destino, Elevador e){
         this.destino = destino;
         this.elevador = e;
     }
@@ -56,8 +52,7 @@ public class BotonDestino implements BotonInterfaz, Interrupcion {
     @Override
     public void crearInstruccion() {
         int pisoOrigen = elevador.pisoActual;
-        int pisoDestino = Integer.parseInt(label);
-        instruccion = new InstruccionSubirBajar(pisoOrigen, pisoDestino,
-                pisoDestino > pisoOrigen ? Acciones.BAJAR : Acciones.SUBIR, elevador.numeroElevador);
+        instruccion = new InstruccionSubirBajar(pisoOrigen, destino,
+                destino > pisoOrigen ? Acciones.BAJAR : Acciones.SUBIR, elevador.numeroElevador);
     }
 }

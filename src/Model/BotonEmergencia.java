@@ -8,10 +8,9 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 public class BotonEmergencia implements BotonInterfaz, Interrupcion {
-    boolean luz = false;
-    String label = "Emergencia";
-    Button botonInterfaz;
-    Instruccion instruccion;
+    private boolean luz = false;
+    private Button botonInterfaz;
+    private Instruccion instruccion;
     public Elevador elevador;
 
     @Override

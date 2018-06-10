@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 public class Elevador {
     public ArrayList<Boolean> lucesLlegada = new ArrayList<>();
@@ -14,9 +15,9 @@ public class Elevador {
     int utPuertasAbiertas;
     ArrayList<Integer> proximosDestinos = new ArrayList<>();
     boolean detener = false;
-    private Thread thread;
     Calendarizador calendarizador;
     ObservadorElevador observador;
+    private SensorPeso sensorPeso = new SensorPeso();
 
     public Elevador(int numeroElevador, int numeroPisos, float emergencia, float detenerse,
                     int utEP, int utPA, Calendarizador c, ObservadorElevador observador) {
@@ -26,17 +27,17 @@ public class Elevador {
         botonDetenerse.elevador = this;
         this.numeroElevador = numeroElevador;
         lucesLlegada.add(true);
-        panel.add(new BotonDestino(numeroElevador, 1, this));
-        for(int i = 1; i < numeroPisos; i++) {
+        panel.add(new BotonDestino(1, this));
+        IntStream.range(1, numeroPisos).forEach(i -> {
             lucesLlegada.add(false);
-            panel.add(new BotonDestino(numeroElevador, i+1, this));
-        }
+            panel.add(new BotonDestino(i + 1, this));
+        });
         this.probabilidadDetenerse = detenerse;
         this.probabilidadEmergencia = emergencia;
         this.utEntrePisos = utEP;
         this.utPuertasAbiertas = utPA;
-        this.thread = new Thread(new ElevadorThread(this));
-        this.thread.start();
+        Thread thread = new Thread(new ElevadorThread(this));
+        thread.start();
         this.calendarizador = c;
         this.observador = observador;
     }

@@ -1,6 +1,5 @@
 package Model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Piso {
@@ -20,11 +19,11 @@ public class Piso {
         this.calendarizador = c;
     }
 
-    public void abrirPuertas(int numeroElevador){
+    void abrirPuertas(int numeroElevador){
         estadoPuertas.set(numeroElevador-1, true);
     }
 
-    public void cerrarPuertas(int numeroElevador){
+    void cerrarPuertas(int numeroElevador){
         estadoPuertas.set(numeroElevador-1, false);
     }
 

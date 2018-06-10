@@ -13,7 +13,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 
 import java.io.File;
@@ -70,12 +69,12 @@ public class ControllerPiso implements Initializable {
         }
         int x = 14;
         ArrayList<Boolean> estadoPuertas = new ArrayList<>();
-        for (int i = 0; i < elevadores.size(); i++) {
+        for (Elevador elevadore : elevadores) {
             ImageView imagen = new ImageView();
             puertasElevadores.add(imagen);
             imagen.setLayoutY(14);
             imagen.setLayoutX(x);
-            int pisoActualElevador = elevadores.get(i).pisoActual;
+            int pisoActualElevador = elevadore.pisoActual;
             int pisoActual = piso.numeroPiso;
             imagen.setImage(pisoActual == pisoActualElevador ? puertaAbierta : puertaCerrada);
             estadoPuertas.add(pisoActual == pisoActualElevador);

@@ -2,10 +2,10 @@ package Model;
 
 import java.util.ArrayList;
 
-public class PisoFactory {
-    public static ConfiguracionDTO configuracion;
+class PisoFactory {
+    static ConfiguracionDTO configuracion;
 
-    public static Piso buidPiso(int numeroPiso, ArrayList<Float> p1, ArrayList<Float> p2, Calendarizador c){
+    static Piso buidPiso(int numeroPiso, ArrayList<Float> p1, ArrayList<Float> p2, Calendarizador c){
         ArrayList<BotonInterfaz> aux = new ArrayList<>();
         Piso p = new Piso(numeroPiso, p1.get(numeroPiso-1), p2.get(numeroPiso-1), c);
         if(numeroPiso == configuracion.getNumeroPisos()){
