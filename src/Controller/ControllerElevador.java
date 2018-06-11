@@ -27,6 +27,10 @@ public class ControllerElevador implements Initializable {
     public ImageView puerta;
     @FXML
     public Pane lucesLlegadaPane;
+    @FXML
+    public Button detener;
+    @FXML
+    public Button emergencia;
 
     public Elevador elevador;
     private boolean stop = false;
@@ -41,6 +45,10 @@ public class ControllerElevador implements Initializable {
         file = new File("src/Resources/puertaCerrada.png");
         puertaCerrada = new Image(file.toURI().toString());
         puerta.setImage(puertaAbierta);
+        detener.setBackground(new Background(new BackgroundFill(
+                Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        emergencia.setBackground(new Background(new BackgroundFill(
+                Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     void iniciar(){
@@ -61,7 +69,7 @@ public class ControllerElevador implements Initializable {
         int j = 1;
         int maximo = 6;
         int iteracion = 1;
-        for (BotonInterfaz botonInterfaz : elevador.panel) {
+        for (InterfazBotones botonInterfaz : elevador.panel) {
             Button b = new Button();
             b.setBackground(new Background(new BackgroundFill(
                     Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -71,7 +79,7 @@ public class ControllerElevador implements Initializable {
             b.setText(Integer.toString(j));
             b.setPrefHeight(30);
             b.setPrefWidth(37);
-            ((BotonDestino) botonInterfaz).botonInterfaz = b;
+            ((DestinoBotones) botonInterfaz).botonInterfaz = b;
             panel.getChildren().add(b);
             x += 44;
             j++;
@@ -83,6 +91,10 @@ public class ControllerElevador implements Initializable {
                 iteracion++;
             }
         }
+        elevador.botonEmergencia.asociarBotonInterfaz(this.emergencia);
+        elevador.botonDetenerse.asociarBotonInterfaz(this.detener);
+        this.emergencia.setOnAction(event -> elevador.botonEmergencia.presionar());
+        this.detener.setOnAction(event -> elevador.botonDetenerse.presionar());
         actualizarInfo();
     }
 

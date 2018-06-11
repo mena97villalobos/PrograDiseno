@@ -5,13 +5,20 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
-public class BotonEmergencia implements BotonInterfaz, Interrupcion {
+import java.io.File;
+
+public class EmergenciaBotones implements InterfazBotones, Interrupcion {
     private boolean luz = false;
     private Button botonInterfaz;
-    private Instruccion instruccion;
     public Elevador elevador;
+
+    public EmergenciaBotones(Elevador elevador) {
+        this.elevador = elevador;
+    }
 
     @Override
     public void prenderLuz() {
@@ -33,18 +40,30 @@ public class BotonEmergencia implements BotonInterfaz, Interrupcion {
             apagarLuz();
         else{
             prenderLuz();
-            crearInstruccion();
-            lanzarInterrupcion();
+            Instruccion i = crearInstruccion();
+            lanzarInterrupcion(i);
+            encenderAlarma();
         }
     }
 
     @Override
-    public void lanzarInterrupcion() {
+    public void asociarBotonInterfaz(Button botonInterfaz) {
+        this.botonInterfaz = botonInterfaz;
+    }
+
+    @Override
+    public void lanzarInterrupcion(Instruccion instruccion) {
         elevador.calendarizador.annadirInstruccion(instruccion);
     }
 
     @Override
-    public void crearInstruccion() {
-        instruccion = new InstruccionEmergenciaDetenerse(elevador, Acciones.EMERGENCIA);
+    public Instruccion crearInstruccion() {
+        return Instruccion.construirInstruccion(Acciones.EMERGENCIA, elevador);
+    }
+
+    private void encenderAlarma(){
+        Media sound = new Media(new File("src/Resources/alarma.mp3").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Piso {
     public int numeroPiso;
     private SensorProximidad sensorProximidad = new SensorProximidad();
-    public ArrayList<BotonInterfaz> panel;
+    public ArrayList<InterfazBotones> panel;
     private float probabilidaPasajero;
     private float probabilidaPisoDestino;
     public ArrayList<Boolean> estadoPuertas = new ArrayList<>();

@@ -4,33 +4,37 @@ import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 public class Elevador {
-    public ArrayList<Boolean> lucesLlegada = new ArrayList<>();
-    public ArrayList<BotonInterfaz> panel = new ArrayList<>();
+    //Información del Elevador
     int numeroElevador;
     public int pisoActual = 1;
-    private float probabilidadEmergencia;
-    private float probabilidadDetenerse;
+    public ArrayList<Boolean> lucesLlegada = new ArrayList<>();
+    public ArrayList<InterfazBotones> panel = new ArrayList<>();
     public Estados estado = Estados.DETENIDO;
-    int utEntrePisos;
-    int utPuertasAbiertas;
+    private SensorPeso sensorPeso = new SensorPeso();
     ArrayList<Integer> proximosDestinos = new ArrayList<>();
     boolean detener = false;
     Calendarizador calendarizador;
     ObservadorElevador observador;
-    private SensorPeso sensorPeso = new SensorPeso();
+    public InterfazBotones botonEmergencia;
+    public InterfazBotones botonDetenerse;
+
+    //Probabilidades y variables de simulación
+    private float probabilidadEmergencia;
+    private float probabilidadDetenerse;
+    int utEntrePisos;
+    int utPuertasAbiertas;
 
     public Elevador(int numeroElevador, int numeroPisos, float emergencia, float detenerse,
                     int utEP, int utPA, Calendarizador c, ObservadorElevador observador) {
-        BotonEmergencia botonEmergencia = new BotonEmergencia();
-        botonEmergencia.elevador = this;
-        BotonDetenerse botonDetenerse = new BotonDetenerse();
-        botonDetenerse.elevador = this;
+        this.botonEmergencia = BotonesBuilder.crearBoton(this, Acciones.EMERGENCIA);
+        this.botonDetenerse = BotonesBuilder.crearBoton(this, Acciones.DETENERSE);
+
         this.numeroElevador = numeroElevador;
         lucesLlegada.add(true);
-        panel.add(new BotonDestino(1, this));
+        panel.add(BotonesBuilder.crearBoton(1, this));
         IntStream.range(1, numeroPisos).forEach(i -> {
             lucesLlegada.add(false);
-            panel.add(new BotonDestino(i + 1, this));
+            panel.add(BotonesBuilder.crearBoton(i + 1, this));
         });
         this.probabilidadDetenerse = detenerse;
         this.probabilidadEmergencia = emergencia;

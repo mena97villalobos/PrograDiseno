@@ -43,28 +43,24 @@ public class ControllerPiso implements Initializable {
     }
 
     void iniciar(ArrayList<Elevador> elevadores){
-        for (BotonInterfaz botonInterfaz : piso.panel) {
+        for (InterfazBotones interfazBoton : piso.panel) {
             Button b = new Button();
             b.setBackground(new Background(new BackgroundFill(
                     Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
-            b.setOnAction(event -> botonInterfaz.presionar());
-            String text = "";
-            try{
-                ((BotonSubir) botonInterfaz).botonInterfaz = b;
+            b.setOnAction(event -> interfazBoton.presionar());
+            String text;
+            if(interfazBoton instanceof SubirBotones){
                 b.setLayoutX(18);
                 b.setLayoutY(14);
-                text = ((BotonSubir) botonInterfaz).label;
+                text = "SUBIR";
             }
-            catch (Exception e){
-                try {
-                    ((BotonBajar) botonInterfaz).botonInterfaz = b;
-                    b.setLayoutX(18);
-                    b.setLayoutY(55);
-                    text = ((BotonBajar) botonInterfaz).label;
-                }
-                catch (ClassCastException ignored){}
+            else{
+                b.setLayoutX(18);
+                b.setLayoutY(55);
+                text = "BAJAR";
             }
             b.setText(text);
+            interfazBoton.asociarBotonInterfaz(b);
             panel.getChildren().add(b);
         }
         int x = 14;
@@ -74,10 +70,9 @@ public class ControllerPiso implements Initializable {
             puertasElevadores.add(imagen);
             imagen.setLayoutY(14);
             imagen.setLayoutX(x);
-            int pisoActualElevador = elevadore.pisoActual;
-            int pisoActual = piso.numeroPiso;
-            imagen.setImage(pisoActual == pisoActualElevador ? puertaAbierta : puertaCerrada);
-            estadoPuertas.add(pisoActual == pisoActualElevador);
+            boolean elevadorEnPiso = elevadore.pisoActual == piso.numeroPiso;
+            imagen.setImage(elevadorEnPiso ? puertaAbierta : puertaCerrada);
+            estadoPuertas.add(elevadorEnPiso);
             imagen.setFitHeight(295);
             imagen.setFitWidth(200);
             elevadoresPanel.getChildren().add(imagen);

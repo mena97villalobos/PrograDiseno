@@ -7,14 +7,13 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
-public class BotonBajar implements BotonInterfaz, Interrupcion{
+public class SubirBotones implements InterfazBotones, Interrupcion {
     private boolean luz = false;
-    public String label = "BAJAR";
-    public Button botonInterfaz;
-    private Instruccion instruccion;
+    public String label = "SUBIR";
+    private Button botonInterfaz;
     public Piso piso;
 
-    BotonBajar(Piso piso) {
+    SubirBotones(Piso piso) {
         this.piso = piso;
     }
 
@@ -38,18 +37,24 @@ public class BotonBajar implements BotonInterfaz, Interrupcion{
             apagarLuz();
         else{
             prenderLuz();
-            crearInstruccion();
-            lanzarInterrupcion();
+            Instruccion i = crearInstruccion();
+            lanzarInterrupcion(i);
         }
     }
 
     @Override
-    public void lanzarInterrupcion() {
-        piso.calendarizador.annadirInstruccion(instruccion);
+    public void asociarBotonInterfaz(Button botonInterfaz) {
+        this.botonInterfaz = botonInterfaz;
     }
 
     @Override
-    public void crearInstruccion() {
-        instruccion = new InstruccionSubirBajar(piso.numeroPiso, piso.numeroPiso, Acciones.BAJAR, -1);
+    public void lanzarInterrupcion(Instruccion i) {
+        piso.calendarizador.annadirInstruccion(i);
+    }
+
+    @Override
+    public Instruccion crearInstruccion() {
+        return Instruccion.construirInstruccion(Acciones.SUBIR,
+                piso.numeroPiso, piso.numeroPiso, -1);
     }
 }

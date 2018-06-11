@@ -7,11 +7,16 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
-public class BotonDetenerse implements BotonInterfaz, Interrupcion {
+public class DestinoBotones implements InterfazBotones, Interrupcion {
     private boolean luz = false;
-    private Button botonInterfaz;
-    private Instruccion instruccion;
+    private int destino;
+    public Button botonInterfaz;
     public Elevador elevador;
+
+    DestinoBotones(int destino, Elevador e){
+        this.destino = destino;
+        this.elevador = e;
+    }
 
     @Override
     public void prenderLuz() {
@@ -33,18 +38,25 @@ public class BotonDetenerse implements BotonInterfaz, Interrupcion {
             apagarLuz();
         else{
             prenderLuz();
-            crearInstruccion();
-            lanzarInterrupcion();
+            Instruccion i = crearInstruccion();
+            lanzarInterrupcion(i);
         }
     }
 
     @Override
-    public void lanzarInterrupcion() {
+    public void lanzarInterrupcion(Instruccion instruccion) {
         elevador.calendarizador.annadirInstruccion(instruccion);
     }
 
     @Override
-    public void crearInstruccion() {
-        instruccion = new InstruccionEmergenciaDetenerse(elevador, Acciones.DETENERSE);
+    public void asociarBotonInterfaz(Button botonInterfaz) {
+        this.botonInterfaz = botonInterfaz;
+    }
+
+    @Override
+    public Instruccion crearInstruccion() {
+        int pisoOrigen = elevador.pisoActual;
+        return Instruccion.construirInstruccion(destino > pisoOrigen ? Acciones.BAJAR : Acciones.SUBIR,
+                pisoOrigen, destino, elevador.numeroElevador);
     }
 }

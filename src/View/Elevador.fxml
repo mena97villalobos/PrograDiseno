@@ -16,6 +16,10 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8f8f8" height="407.0" layoutX="48.0" layoutY="143.0" stroke="BLACK" strokeType="INSIDE" width="290.0" />
       <ImageView fx:id="puerta" fitHeight="628.0" fitWidth="517.0" layoutX="389.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" />
       <Pane fx:id="lucesLlegadaPane" layoutX="11.0" layoutY="14.0" prefHeight="63.0" prefWidth="898.0" />
-      <Pane fx:id="panel" layoutX="48.0" layoutY="143.0" prefHeight="407.0" prefWidth="290.0" />
+      <Pane fx:id="panel" layoutX="48.0" layoutY="143.0" prefHeight="407.0" prefWidth="290.0">
+         <children>
+            <Button fx:id="emergencia" layoutX="161.0" layoutY="362.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="115.0" text="EMERGENCIA" />
+            <Button fx:id="detener" layoutX="14.0" layoutY="362.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="115.0" text="DETENER" />
+         </children></Pane>
    </children>
 </AnchorPane>

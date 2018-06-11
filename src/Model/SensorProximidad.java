@@ -2,12 +2,12 @@ package Model;
 
 class SensorProximidad implements Interrupcion{
     @Override
-    public void lanzarInterrupcion() {
+    public void lanzarInterrupcion(Instruccion instruccion) {
 
     }
 
     @Override
-    public void crearInstruccion() {
-
+    public Instruccion crearInstruccion() {
+        return null;
     }
 }
