@@ -35,7 +35,7 @@ public class Calendarizador implements Runnable{
                 InstruccionSubirBajar iBajar = (InstruccionSubirBajar) i;
                 if(iBajar.elevador == -1) {
                     for (Elevador elevador : elevadores) {
-                        if (elevador.estado == Estados.BAJANDO) {
+                        if (elevador.estado == Estados.BAJANDO && !elevador.lleno) {
                             if (elevador.pisoActual >= iBajar.pisoOrigen) {
                                 annadirDestinos(iBajar.pisoOrigen, iBajar.pisoDestino, elevador);
                                 realizada = true;
@@ -45,7 +45,7 @@ public class Calendarizador implements Runnable{
                     }
                     if (!realizada) {
                         for (Elevador elevador : elevadores) {
-                            if (elevador.estado == Estados.DETENIDO) {
+                            if (elevador.estado == Estados.DETENIDO && !elevador.lleno) {
                                 annadirDestinos(iBajar.pisoOrigen, iBajar.pisoDestino, elevador);
                                 realizada = true;
                                 break;
@@ -65,7 +65,7 @@ public class Calendarizador implements Runnable{
                 if(iSubir.elevador == -1) {
                     realizada = false;
                     for (Elevador elevador : elevadores) {
-                        if (elevador.estado == Estados.SUBIENDO) {
+                        if (elevador.estado == Estados.SUBIENDO && !elevador.lleno) {
                             if (elevador.pisoActual >= iSubir.pisoOrigen) {
                                 annadirDestinos(iSubir.pisoOrigen, iSubir.pisoDestino, elevador);
                                 realizada = true;
@@ -75,7 +75,7 @@ public class Calendarizador implements Runnable{
                     }
                     if (!realizada) {
                         for (Elevador elevador : elevadores)
-                            if (elevador.estado == Estados.DETENIDO) {
+                            if (elevador.estado == Estados.DETENIDO && !elevador.lleno) {
                                 annadirDestinos(iSubir.pisoOrigen, iSubir.pisoDestino, elevador);
                                 realizada = true;
                                 break;

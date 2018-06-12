@@ -168,6 +168,8 @@ public class ControllerConfiguracion implements Initializable {
         simular.setOnAction(event -> {
             Simulacion s = new Simulacion(configuracion);
             s.iniciar();
+            Thread hiloSimulador = new Thread(s);
+            hiloSimulador.start();
             abrir_pantallas(s.elevadores, s.pisos);
         });
     }

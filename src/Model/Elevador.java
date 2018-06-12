@@ -17,6 +17,7 @@ public class Elevador {
     ObservadorElevador observador;
     public InterfazBotones botonEmergencia;
     public InterfazBotones botonDetenerse;
+    public boolean lleno = false;
 
     //Probabilidades y variables de simulación
     private float probabilidadEmergencia;
@@ -48,6 +49,10 @@ public class Elevador {
 
     void annadirDestino(int destino){
         proximosDestinos.add(destino);
+    }
+
+    public void setMaxPasajeros(int maxPasajeros){
+        sensorPeso.setMaxPasajeros(maxPasajeros);
     }
 
 }

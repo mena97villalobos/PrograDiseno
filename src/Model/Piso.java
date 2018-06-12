@@ -6,8 +6,8 @@ public class Piso {
     public int numeroPiso;
     private SensorProximidad sensorProximidad = new SensorProximidad();
     public ArrayList<InterfazBotones> panel;
-    private float probabilidaPasajero;
-    private float probabilidaPisoDestino;
+    float probabilidaPasajero;
+    float probabilidaPisoDestino;
     public ArrayList<Boolean> estadoPuertas = new ArrayList<>();
     Calendarizador calendarizador;
 
@@ -25,6 +25,22 @@ public class Piso {
 
     void cerrarPuertas(int numeroElevador){
         estadoPuertas.set(numeroElevador-1, false);
+    }
+
+    InterfazBotones getBotonSubir(){
+        for (InterfazBotones interfazBotones : panel) {
+            if(interfazBotones instanceof SubirBotones)
+                return interfazBotones;
+        }
+        return null;
+    }
+
+    InterfazBotones getBotonBajar(){
+        for (InterfazBotones interfazBotones : panel) {
+            if(interfazBotones instanceof BajarBotones)
+                return interfazBotones;
+        }
+        return null;
     }
 
 }

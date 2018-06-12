@@ -56,7 +56,7 @@ public class DestinoBotones implements InterfazBotones, Interrupcion {
     @Override
     public Instruccion crearInstruccion() {
         int pisoOrigen = elevador.pisoActual;
-        return Instruccion.construirInstruccion(destino > pisoOrigen ? Acciones.BAJAR : Acciones.SUBIR,
+        return Instruccion.construirInstruccion(destino < pisoOrigen ? Acciones.BAJAR : Acciones.SUBIR,
                 pisoOrigen, destino, elevador.numeroElevador);
     }
 }
