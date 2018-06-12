@@ -17,11 +17,11 @@ public class Elevador {
     ObservadorElevador observador;
     public InterfazBotones botonEmergencia;
     public InterfazBotones botonDetenerse;
-    public boolean lleno = false;
+    boolean lleno = false;
 
     //Probabilidades y variables de simulación
-    private float probabilidadEmergencia;
-    private float probabilidadDetenerse;
+    public float probabilidadEmergencia;
+    public float probabilidadDetenerse;
     int utEntrePisos;
     int utPuertasAbiertas;
 

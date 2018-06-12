@@ -103,6 +103,16 @@ public class Simulacion implements Runnable {
                 }
             }
             generarPasajero(pisoDestino, pisoOrigen);
+            for (Elevador elevador : elevadores) {
+                float probabilidad = random.nextFloat();
+                if(probabilidad <= elevador.probabilidadDetenerse && elevador.estado.equals(Estados.DETENIDO)){
+                    elevador.botonDetenerse.presionar();
+                }
+                probabilidad = random.nextFloat();
+                if(probabilidad <= elevador.probabilidadEmergencia){
+                    elevador.botonEmergencia.presionar();
+                }
+            }
         }
     }
 }
